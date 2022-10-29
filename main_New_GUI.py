@@ -18,7 +18,7 @@ def exit():
 def run_active_alert():
     frame_one()
 
-    lbl1['text'] = "Активные стработки"
+    lbl1['text'] = "Активные заказы"
 
 
 def run_catalog():
@@ -55,7 +55,7 @@ def onSelect(val):
 
 def win_active_alarm(list, idx):
     win = Toplevel(root)
-    win.title("Han Pult Окно активной сработки")
+    win.title("Han Pult Окно активного заказа")
     win.resizable(False, False)
     w = 800
     h = 640
@@ -76,31 +76,33 @@ def win_active_alarm(list, idx):
     def open_cart():
         card_object_view(win, number_of_alert)
 
-    def outgouing_gbr():
-        lst_alarm.insert(END, " " + Functions.update_time() + ". ГБР выслана  на объект.")
+    def order_taked():
+        lst_alarm.insert(END, " " + Functions.update_time() + ". Заказ принят.")
 
-    def incomming_gbr():
-        lst_alarm.insert(END, " " + Functions.update_time() + ". ГБР прибыла  на объект.")
+    def order_sent():
+        lst_alarm.insert(END, " " + Functions.update_time() + ". Заказ отправлен.")
 
-    def inspect_object_ok():
-        lst_alarm.insert(END, " " + Functions.update_time() + ". Объект осмотрен, все ОК!.")
+    def order_sended():
+        lst_alarm.insert(END, " " + Functions.update_time() + ". Заказ доставлен.")
 
-    def inspect_object_problem():
-        lst_alarm.insert(END, " " + Functions.update_time() + ". Объект осмотрен, проблема.")
+    def order_cashed():
+        lst_alarm.insert(END, " " + Functions.update_time() + ". Заказ оплачен. Все Ок!")
 
-    def otboy():
-        lst_alarm.insert(END, " " + Functions.update_time() + ". Отбой ГБР по объекту.")
+    def order_cashed_strike():
+        lst_alarm.insert(END, " " + Functions.update_time() + ". Заказ оплачен. Жалоба.")
 
-    def not_action():
-        lst_alarm.insert(END, " " + Functions.update_time() + ". Реагирование на объект отключено.")
+    def order_not_action():
+        lst_alarm.insert(END, " " + Functions.update_time() + ". Не реагировать на этот заказ.")
 
-    def ended_alarm():
-        lst_alarm.insert(END, " " + Functions.update_time() + ". Тревога завершена.")
+    def order_ended():
+        lst_alarm.insert(END, " " + Functions.update_time() + ". Заказ завершен.")
         ended_list = []
         ended_list = lst_alarm.get(0, END)
         Functions.writing_alert(time_for_start_working, ended_list, str(number_of_alert))
+        lst_alarm.delete(0, END)
         lst.delete(idx)
         win.destroy()
+
     frame_main_frame_alarm = Frame(master=win, relief=GROOVE, borderwidth=5, bg='#0c47a6')
     frame_main_frame_alarm.pack(fill=BOTH, expand=True)
 
@@ -133,24 +135,24 @@ def win_active_alarm(list, idx):
 
     lbl1 = Label(frame_left_alarm, text="Этапы обработки", width=15, font="Tahoma 14")
     lbl1.grid(padx=5, pady=5, row=0)
-    btn1 = Button(frame_left_alarm, text="Отправить ГБР", width=15, bg="Green", activebackground="Yellow",
-                  font="Tahoma 14", command=outgouing_gbr)
+    btn1 = Button(frame_left_alarm, text="Заказ принят", width=15, bg="Green", activebackground="Yellow",
+                  font="Tahoma 14", command=order_taked)
     btn1.grid(padx=5, pady=5, row=1)
-    btn2 = Button(frame_left_alarm, text="Прибытие ГБР", width=15, bg="Green", activebackground="Yellow",
-                  font="Tahoma 14", command=incomming_gbr)
+    btn2 = Button(frame_left_alarm, text="Заказ отправлен", width=15, bg="Green", activebackground="Yellow",
+                  font="Tahoma 14", command=order_sent)
     btn2.grid(padx=5, pady=5, row=2)
-    btn3 = Button(frame_left_alarm, text="Осмотрено Ок!", width=15, bg="Green", activebackground="Yellow",
-                  font="Tahoma 14", command=inspect_object_ok)
+    btn3 = Button(frame_left_alarm, text="Заказ доставлен", width=15, bg="Green", activebackground="Yellow",
+                  font="Tahoma 14", command=order_sended)
     btn3.grid(padx=5, pady=5, row=3)
-    btn4 = Button(frame_left_alarm, text="Осм., проблема", width=15, bg="Red", activebackground="Yellow",
-                  font="Tahoma 14", command=inspect_object_problem)
+    btn4 = Button(frame_left_alarm, text="Заказ оплачен", width=15, bg="Green", activebackground="Yellow",
+                  font="Tahoma 14", command=order_cashed)
     btn4.grid(padx=5, pady=5, row=4)
-    btn5 = Button(frame_left_alarm, text="Отбой", width=15, bg="Green", activebackground="Yellow", font="Tahoma 14", command=otboy)
+    btn5 = Button(frame_left_alarm, text="Заказ оплачен. !", width=15, bg="Red", activebackground="Yellow", font="Tahoma 14", command=order_cashed_strike)
     btn5.grid(padx=5, pady=5, row=5)
     btn6 = Button(frame_left_alarm, text="Не реагировать", width=15, bg="Purple", activebackground="Yellow",
-                  font="Tahoma 14", command=not_action)
+                  font="Tahoma 14", command=order_not_action)
     btn6.grid(padx=5, pady=5, row=6)
-    btn7 = Button(frame_left_alarm, text="Завершить", width=15, bg="Green", activebackground="Yellow", font="Tahoma 14", command=ended_alarm)
+    btn7 = Button(frame_left_alarm, text="Завершить", width=15, bg="Green", activebackground="Yellow", font="Tahoma 14", command=order_ended)
     btn7.grid(padx=5, pady=5, row=7)
     btn8 = Button(frame_left_alarm, text="Карточка объекта", width=15, bg="Green", activebackground="Yellow",
                   font="Tahoma 14", command=open_cart)
@@ -762,18 +764,18 @@ frame_left.pack(fill=BOTH, padx=4, pady=4, side=LEFT)
 frame_right = Frame(master=frame_main_frame, relief=RAISED, borderwidth=2, bg='Gray')
 frame_right.pack(fill=BOTH, padx=4, pady=4, side=RIGHT, expand=True)
 
-lbl1 = Label(frame_left, text="Заголовок", width=10, font="Tahoma 14")
+lbl1 = Label(frame_left, text="Меню заказов", width=15, font="Tahoma 14")
 lbl1.grid(padx=5, pady=5, row=0)
-btn1 = Button(frame_left, text="Button1", width=10, bg="Red", activebackground="Yellow", font="Tahoma 14",
+btn1 = Button(frame_left, text="Создать заказ", width=15, bg="Red", activebackground="Yellow", font="Tahoma 14",
               command="")
 btn1.grid(padx=5, pady=5, row=1)
-btn2 = Button(frame_left, text="Button1", width=10, bg="Green", activebackground="Yellow", font="Tahoma 14")
+btn2 = Button(frame_left, text="Button1", width=15, bg="Green", activebackground="Yellow", font="Tahoma 14")
 btn2.grid(padx=5, pady=5, row=2)
-btn3 = Button(frame_left, text="Button1", width=10, bg="Red", activebackground="Yellow", font="Tahoma 14")
+btn3 = Button(frame_left, text="Button1", width=15, bg="Red", activebackground="Yellow", font="Tahoma 14")
 btn3.grid(padx=5, pady=5, row=3)
-btn4 = Button(frame_left, text="Button1", width=10, bg="Green", activebackground="Yellow", font="Tahoma 14")
+btn4 = Button(frame_left, text="Button1", width=15, bg="Green", activebackground="Yellow", font="Tahoma 14")
 btn4.grid(padx=5, pady=5, row=4)
-btn5 = Button(frame_left, text="Button1", width=10, bg="Green", activebackground="Yellow", font="Tahoma 14")
+btn5 = Button(frame_left, text="Button1", width=15, bg="Green", activebackground="Yellow", font="Tahoma 14")
 btn5.grid(padx=5, pady=5, row=5)
 lbl1 = Label(frame_right, text="Активные сработки", height=1, font="Tahoma 14")
 lbl1.pack(fill=BOTH, padx=4, pady=4)
